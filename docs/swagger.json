@@ -1,0 +1,115 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Mortgage Calculator API.",
+        "title": "Mortgage Calculator API",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "Sergio Marin",
+            "url": "https://highercomve.github.io",
+            "email": "@highercomve"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "basePath": "/",
+    "paths": {
+        "/calculate": {
+            "get": {
+                "description": "Calculate mortgage",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Calculate mortgage",
+                "parameters": [
+                    {
+                        "description": "Input mortgage calculator",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/mortgagemodels.InputP"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Mortgage response",
+                        "schema": {
+                            "$ref": "#/definitions/mortgagemodels.OutputP"
+                        }
+                    },
+                    "400": {
+                        "description": "Input is not valid",
+                        "schema": {
+                            "$ref": "#/definitions/echo.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Error processing request",
+                        "schema": {
+                            "$ref": "#/definitions/echo.HTTPError"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "echo.HTTPError": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "object"
+                }
+            }
+        },
+        "mortgagemodels.InputP": {
+            "type": "object",
+            "required": [
+                "anual_interest",
+                "downpayment",
+                "period",
+                "price",
+                "schedule"
+            ],
+            "properties": {
+                "anual_interest": {
+                    "type": "number"
+                },
+                "downpayment": {
+                    "type": "number"
+                },
+                "period": {
+                    "type": "integer"
+                },
+                "price": {
+                    "type": "number"
+                },
+                "schedule": {
+                    "type": "string"
+                }
+            }
+        },
+        "mortgagemodels.OutputP": {
+            "type": "object",
+            "properties": {
+                "number_of_payments": {
+                    "type": "integer"
+                },
+                "payment": {
+                    "type": "number"
+                },
+                "schedule": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

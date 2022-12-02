@@ -1,0 +1,77 @@
+basePath: /
+definitions:
+  echo.HTTPError:
+    properties:
+      message:
+        type: object
+    type: object
+  mortgagemodels.InputP:
+    properties:
+      anual_interest:
+        type: number
+      downpayment:
+        type: number
+      period:
+        type: integer
+      price:
+        type: number
+      schedule:
+        type: string
+    required:
+    - anual_interest
+    - downpayment
+    - period
+    - price
+    - schedule
+    type: object
+  mortgagemodels.OutputP:
+    properties:
+      number_of_payments:
+        type: integer
+      payment:
+        type: number
+      schedule:
+        type: string
+    type: object
+info:
+  contact:
+    email: '@highercomve'
+    name: Sergio Marin
+    url: https://highercomve.github.io
+  description: Mortgage Calculator API.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Mortgage Calculator API
+  version: "1.0"
+paths:
+  /calculate:
+    get:
+      consumes:
+      - application/json
+      description: Calculate mortgage
+      parameters:
+      - description: Input mortgage calculator
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/mortgagemodels.InputP'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Mortgage response
+          schema:
+            $ref: '#/definitions/mortgagemodels.OutputP'
+        "400":
+          description: Input is not valid
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Error processing request
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      summary: Calculate mortgage
+swagger: "2.0"
