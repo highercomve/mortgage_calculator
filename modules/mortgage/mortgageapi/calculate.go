@@ -29,7 +29,7 @@ func Calculate(c echo.Context) (err error) {
 	service := mortgageservices.NewDefaultService(insuranceservices.NewCMHC())
 	resp, err := service.Calculate(payload)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err)
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
 	return c.JSON(http.StatusOK, resp)

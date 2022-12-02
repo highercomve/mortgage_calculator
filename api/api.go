@@ -7,7 +7,7 @@ import (
 
 // LoadAPI load all API
 func LoadAPI(e *echo.Echo) *echo.Group {
-	api := e.Group("api/v1/")
+	api := e.Group("api/v1")
 
 	mortgageapi.Load(api)
 
