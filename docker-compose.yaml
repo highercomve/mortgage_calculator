@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  api:
+    container_name: mortgage_calculator
+    build:
+      context: backend/
+      dockerfile: Dockerfile
+    ports:
+      - "9090:9090"
+
+  frontend:
+    container_name: mortgage_calculator-fw
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ${PWD}/frontend:/app/
+    ports:
+      - "3000:3000"
+    links:
+      - api
